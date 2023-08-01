@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>구구단</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class GuGuDan extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            first: Math.ceil(Math.random() * 9),
+            second: Math.ceil(Math.random() * 9),
+            value: '',
+            result: '',
+          };
+        }
+
+        render() {
+          return (
+            <div>
+              <div>
+                {this.state.first}곱하기 {this.state.second}은?
+              </div>
+              <div>
+                <input
+                  type="number"
+                  value={this.state.value}
+                  onChange={(e) => this.setState({ value: e.target.value })}
+                />
+                <button>입력</button>
+              </div>
+              <div>{this.state.result}</div>
+            </div>
+          );
+        }
+        // input 태그 그대로 사용할 수 있지만 setState로 굳이 내가 제어하는 이유는 내가 코드를 제어함으로써 버그 발생 위험을 줄이는 것이다.
+      }
+    </script>
+    <script type="text/babel">
+      ReactDOM.createRoot(document.querySelector('#root')).render(<GuGuDan />);
+    </script>
+  </body>
+</html>
