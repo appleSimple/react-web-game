@@ -51,17 +51,21 @@
                 second: Math.ceil(Math.random() * 9),
               };
             });
+            this.input.focus();
           } else {
             this.setState({
               result: '땡',
               value: '',
             });
+            this.input.focus();
           }
         };
 
         onChange = (e) => {
           this.setState({ value: e.target.value });
         };
+
+        input;
 
         render() {
           return (
@@ -71,6 +75,9 @@
               </div>
               <form onSubmit={(e) => this.onSubmit(e)}>
                 <input
+                  ref={(c) => {
+                    this.input = c;
+                  }}
                   type="number"
                   value={this.state.value}
                   onChange={(e) => this.onChange(e)}
@@ -86,6 +93,9 @@
         // return은 하나의 div로 리턴되어야 했다 : 단점.. 쓸데없이 div에 감싸진 채로 렌더링됨
         // 빈 태그 <></> 로 감싸면 실제로 렌더링되진 않고, 하나의 요소로 리턴되긴한다.
         // 이것의 이름이 Fragment이고, 이게 컴파일되지 않으면 바벨 버전이 지원하지 않는 것이다.
+        // setState를 할때마다 리턴 렌더링이 계속 된다. 너무 많이 실행되면 성능에 영향을 준다.
+        // 리턴에 함수 스크립트가 포함되어있으면 계속 함수를 새로 생성하기 때문에 성능에 더 안좋다.
+        // 그러므로 스크립트와 뷰는 분리 시킬 필요가 있다.
       }
     </script>
     <script type="text/babel">
