@@ -13,9 +13,10 @@
       crossorigin
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
     <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
-    <script>
+    <script type="text/babel">
       'use strict';
 
       // 클래스는 99% 안쓰임 (1%는 Error boundary에서 사용됨)
@@ -29,10 +30,15 @@
             return 'You liked this.';
           }
 
-          return React.createElement(
-            'button',
-            { onClick: () => this.setState({ liked: true }) },
-            'Like'
+          // return React.createElement(
+          //   'button',
+          //   { onClick: () => this.setState({ liked: true }) },
+          //   'Like'
+          // );
+          // JSX : Javascript + XML 문법
+          // eventListener 함수에서 화살표 함수를 사용하면 this는 전역 객체를 가리키기 때문에 전역 함수를 불러올 수 있다.
+          return (
+            <button onClick={() => this.setState({ liked: true })}>Like</button>
           );
         }
       }
@@ -41,11 +47,18 @@
       // 데이터가 변경되면 화면도 변경된다. 데이터와 화면의 일치.
       // 화면에 변경될 부분을 state로 만들면 된다.
     </script>
-    <script>
-      ReactDOM.render(
-        React.createElement(LikeButton),
-        document.querySelector('#root')
-      );
+    <script type="text/babel">
+      // ReactDOM.render(
+      //   // React.createElement(LikeButton),
+      //   <LikeButton />,
+      //   document.querySelector('#root')
+      // ); // React 17 코드
+      ReactDOM.createRoot(document.querySelector('#root')).render(
+        <LikeButton />
+      ); // React 18
+
+      // jsx는 일반 js가 아니기 때문에 그냥 구동되지 않는다.
+      // jsx는 babel을 이용해 js로 변환한다.
     </script>
   </body>
 </html>
