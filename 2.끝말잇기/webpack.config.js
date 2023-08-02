@@ -1,5 +1,6 @@
 const path = require('path'); // 경로 조작
 const webpack = require('webpack');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 // babel/core : 바벨을 기본적인 모듈
 // babel/preset-env : 환경에 맞게 최신 문법을 옛날 문법으로 컴파일
@@ -42,16 +43,30 @@ module.exports = {
             ],
             '@babel/preset-react',
           ],
-          plugins: [],
+          plugins: ['react-refresh/babel'],
+          // react-refresh/babel :: 핫리로드 위해
         },
       },
     ],
   },
-  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
+  plugins: [
+    new webpack.LoaderOptionsPlugin({ debug: true }),
+    new RefreshWebpackPlugin(), // 핫 리로드 위해
+  ],
 
   output: {
     path: path.join(__dirname, 'dist'), // 경로를 알아서 합쳐줌. 현재 폴더 안에 있는 dist를 자동으로 절대 경로로 잡아줌
     filename: 'app.js',
+  },
+  devServer: {
+    hot: true,
+    port: 8080,
+    open: true,
+    // 아래 속성으로 서버 로컬호스트 404 에러 해결
+    devMiddleware: { publicPath: '/dist/' },
+    static: { directory: path.resolve(__dirname) }, // 실존하는 정적 파일 경로. 렌더링할 최상위 index.html 을 찾아야 함
+    // path는 실제 경로,
+    // publicPath는 가상경로
   },
 };
 

@@ -4,7 +4,7 @@ const ReactDOM = require('react-dom');
 
 class WordRelay extends Component {
   state = {
-    word: '지연',
+    word: '지연이',
     value: '',
     result: '',
   };
@@ -53,7 +53,7 @@ class WordRelay extends Component {
             onChange={this.onChangeInput}
             type="text"
           />
-          <button>입력</button>
+          <button>입력입니다</button>
         </form>
         <div>{this.state.result}</div>
       </>
