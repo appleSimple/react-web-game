@@ -1,64 +1,47 @@
 const React = require('react');
-const { Component } = React;
+const { useState, useRef } = React;
 const ReactDOM = require('react-dom');
 
-class WordRelay extends Component {
-  state = {
-    word: '지연이',
-    value: '',
-    result: '',
-  };
+const WordRelay = () => {
+  const [word, setWord] = useState('지연이');
+  const [value, setValue] = useState('');
+  const [result, setResult] = useState('');
+  const inputRef = useRef(null);
 
-  onSubmitForm = (e) => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
 
-    if (this.state.word[this.state.word.length - 1] === this.state.value[0]) {
-      this.setState({
-        result: '딩동댕',
-        value: '',
-        word: this.state.value,
-      });
-      this.input.focus();
+    if (word[word.length - 1] === value[0]) {
+      setResult('딩동댕');
+      setWord(value);
+      setValue('');
+      inputRef.current.focus();
     } else {
-      this.setState({
-        result: '땡',
-        value: '',
-        word: this.state.word,
-      });
-      this.input.focus();
+      setResult('땡');
+      setValue('');
+      inputRef.current.focus();
     }
   };
 
   onChangeInput = (e) => {
-    this.setState({ value: e.target.value });
+    setValue(e.target.value);
   };
 
-  input;
-
-  onRefInput = (c) => {
-    this.input = c;
-  };
-
-  // control input과 uncontrol input
-  // control input : value와 onChange 세트로 사용
-  // uncontrol input : defaultValue를 써야함
-  render() {
-    return (
-      <>
-        <div>{this.state.word}</div>
-        <form onSubmit={this.onSubmitForm}>
-          <input
-            ref={this.onRefInput}
-            value={this.state.value}
-            onChange={this.onChangeInput}
-            type="text"
-          />
-          <button>입력입니다</button>
-        </form>
-        <div>{this.state.result}</div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <div>{word}</div>
+      <form onSubmit={onSubmitForm}>
+        <input
+          ref={inputRef}
+          value={value}
+          onChange={onChangeInput}
+          type="text"
+        />
+        <button>입력</button>
+      </form>
+      <div>{result}</div>
+    </>
+  );
+};
 
 module.exports = WordRelay;
