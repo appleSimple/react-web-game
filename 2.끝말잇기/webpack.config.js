@@ -1,4 +1,5 @@
 const path = require('path'); // 경로 조작
+const webpack = require('webpack');
 
 // babel/core : 바벨을 기본적인 모듈
 // babel/preset-env : 환경에 맞게 최신 문법을 옛날 문법으로 컴파일
@@ -26,11 +27,27 @@ module.exports = {
         loader: 'babel-loader',
         // babel 옵션
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+          // presets : 플러그인들의 모음. 하나의 preset에도 여러가지 기능이 있다. 하나의 preset도 설정을 따로 할 수 있다.
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                // 브라우저 호환성을 위해 js코드 컴파일
+                targets: {
+                  browsers: ['> 5% in KR', 'last 2 chrome versions'], // 원하는 브라우저에만 맞춰서 변경 가능, 왜냐면 과거 브라우저로 갈수록 더 컴파일이 어려워져서 성능이 느려질 수 있다.
+                  // '> 5% in KR' : 한국에서 5% 이상의 점유율을 차지하는 브라우저는 모두 지원
+                  // https://github.com/browserslist/browserslist :: 여기서 확인 가능
+                },
+              },
+            ],
+            '@babel/preset-react',
+          ],
+          plugins: [],
         },
       },
     ],
   },
+  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
 
   output: {
     path: path.join(__dirname, 'dist'), // 경로를 알아서 합쳐줌. 현재 폴더 안에 있는 dist를 자동으로 절대 경로로 잡아줌
