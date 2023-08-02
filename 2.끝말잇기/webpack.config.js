@@ -8,9 +8,9 @@ const path = require('path'); // 경로 조작
 module.exports = {
   name: 'word-realy-setting', // 어떤 것을 위한 설정인가?
   mode: 'development', // or production
-  devtool: 'eval', // 빠르게 하겠다는 것
+  devtool: 'eval', // 빠르게 하겠다는 것, production에서는 hidden-source-map
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
 
   // 가장 중요한 것 entry(입력), output(출력)
@@ -20,20 +20,22 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.jsx?/,
-      loader: 'babel-loader',
-      // babel 옵션
-      options: {
-        presets: ['@babel/preset-env', '@babel/preset-react']
-      }
-    }]
+    rules: [
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        // babel 옵션
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+        },
+      },
+    ],
   },
 
   output: {
     path: path.join(__dirname, 'dist'), // 경로를 알아서 합쳐줌. 현재 폴더 안에 있는 dist를 자동으로 절대 경로로 잡아줌
-    filename: 'app.js'
-  }
+    filename: 'app.js',
+  },
 };
 
 // 명령어 webpack
