@@ -18,6 +18,12 @@
     <script type="text/babel">
       // state를 hooks로 하나씩 분리한다. 하나의 state에 하나의 setState를 선언한다.
       // hooks는 함수 컴포넌트 내에 존재해야 한다.
+      // hooks는 class에 비해 코드 양이 줄어든다.
+      // class는 setState마다, render함수만 재실행되지만 hooks의 setState는 함수 컴포넌트 자체가 재실행되기 때문에 더 느릴 수 있다.
+      // 하지만 setState가 여러개 있으면 렌더링은 1번만 실행되도록 리액트에서 처리해준다. 그래서 setState는 비동기로 동작한다.
+      // 객체 class와 style class의 구분이 어렵기 때문에 style class -> className 을 사용
+      // 반복문의 for과 label 속성 for의 구분이 어렵기 때문에 label for - > htmlFor 을 사용
+      // state를 아예 객체로 선언해서 한꺼번에 바꾸면 안되나?(class처럼) -> 이것도 가능하지만 setState를 부분적으로 해야할 때, 변경이 없는 state는 사라져버린다.
       const GuGuDan = () => {
         const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9 ));
         const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9 ));
