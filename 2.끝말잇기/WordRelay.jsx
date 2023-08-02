@@ -27,6 +27,13 @@ const WordRelay = () => {
     setValue(e.target.value);
   };
 
+  // control input과 uncontrol input
+  // control input : value와 onChange 세트로 사용
+  // uncontrol input : defaultValue를 써야함
+  // 앱이 간단하면 언컨트롤드 인풋 쓰세요.
+
+  // e.target.children.{inputID를 넣으세요} === value
+  // value로 대체 가능
   return (
     <>
       <div>{word}</div>
