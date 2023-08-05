@@ -89,10 +89,13 @@ class NumberBaseball extends Component {
   // Array.push는 배열에 새 요소 추가 후 배열의 길이를 반환한다...
   // Array.length는 빈문자열은 요소의 길이에 포함시키지 않는다는,,
 
+  // 화살표로 하면 this 사용 가능, 그냥 함수 쓰면 this 사용 불가
+  // 화살표 함수가 constructor의 bind(this)를 알아서 해줌
   onChangeInput = (e) => {
     this.setState({ value: e.target.value });
   }
 
+  // bind(this)는 extends에서 알아서 해줌
   render() {
     return (
       <>
