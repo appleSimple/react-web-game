@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Try from "./Try";
 
+// this를 안쓰면 class 객체 내부에 넣지 않는다 -> 다른 파일에서 사용할 수도 있으니까 !
 function getNumbers() { // 겹치지 않는 숫자 4개를 랜덤하게 뽑는 함수
   const set = new Set([]);
 
@@ -51,10 +52,12 @@ class NumberBaseball extends Component {
 
     if (ball === 0 & strike === 0) {
       this.setState((prev) => {
-        prev.tries.push(prev.value);
+        // push 쓰지 말자,, 예전 state와 현재 state가 달라야 렌더링이 된다.
+        // 여튼 얕은 복사로 ㄴㄴ 깊은 복사 후 사용합시다. 뭐 그런 것.
+        const _tries = [...prev.tries, prev.value];
         return {
           result: 'nothing',
-          tries: prev.tries,
+          tries: _tries,
           value: '',
           answer: this.state.answer,
         }
@@ -65,10 +68,10 @@ class NumberBaseball extends Component {
     }
 
     this.setState((prev) => {
-      prev.tries.push(prev.value);
+      const _tries = [...prev.tries, prev.value];
       return {
         result: `${strike}스트라이크 ${ball}볼`,
-        tries: prev.tries,
+        tries: _tries,
         value: '',
         answer: prev.answer,
       }
