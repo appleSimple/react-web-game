@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import Try from "./Try";
 
 // this를 안쓰면 class 객체 내부에 넣지 않는다 -> 다른 파일에서 사용할 수도 있으니까 !
@@ -48,6 +48,8 @@ class NumberBaseball extends Component {
           answer: getNumbers(),
         }
       });
+
+      this.inputRef.current.focus();
     }
 
     if (ball === 0 & strike === 0) {
@@ -63,12 +65,14 @@ class NumberBaseball extends Component {
         }
       });
 
-      console.log(this.state);
+      this.inputRef.current.focus();
       return;
     }
 
     this.setState((prev) => {
       const _tries = [...prev.tries, prev.value];
+      this.inputRef.current.focus();
+
       return {
         result: `${strike}스트라이크 ${ball}볼`,
         tries: _tries,
@@ -86,6 +90,7 @@ class NumberBaseball extends Component {
           answer: getNumbers(),
         }
       });
+      this.inputRef.current.focus();
     }
   }
 
@@ -98,13 +103,17 @@ class NumberBaseball extends Component {
     this.setState({ value: e.target.value });
   }
 
+  // class 컴포넌트에서 useRef대신 사용할 수 있다.
+  // 함수를 사용하면 더 미세하게 조작할 수 있다는 장점이 있음
+  inputRef = createRef();
+
   // bind(this)는 extends에서 알아서 해줌
   render() {
     return (
       <>
         <div>{this.state.result}</div>
         <form onSubmit={this.onSubmitValue}>
-          <input type="text" value={this.state.value} onChange={this.onChangeInput} maxLength={4} />
+          <input ref={this.inputRef} type="text" value={this.state.value} onChange={this.onChangeInput} maxLength={4} />
           <button>입력</button>
         </form>
         <div>시도: {this.state.tries.length}</div>

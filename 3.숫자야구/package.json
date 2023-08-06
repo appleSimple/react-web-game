@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --env development",
+    "prod": "webpack serve --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jiyeon",

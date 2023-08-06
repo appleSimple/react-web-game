@@ -1,6 +1,7 @@
 const path = require('path'); // 경로 조작
 const webpack = require('webpack');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 // babel/core : 바벨을 기본적인 모듈
 // babel/preset-env : 환경에 맞게 최신 문법을 옛날 문법으로 컴파일
@@ -13,6 +14,9 @@ module.exports = {
   devtool: 'eval', // 빠르게 하겠다는 것, production에서는 hidden-source-map
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  optimization: {
+    minimizer: [new TerserPlugin({ /* additional options here */ })],
   },
 
   // 가장 중요한 것 entry(입력), output(출력)
