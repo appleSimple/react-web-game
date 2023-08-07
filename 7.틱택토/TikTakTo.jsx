@@ -103,7 +103,7 @@ const TikTackTo = () => {
   // const [tableData, setTableData] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
 
   // 컴포넌트에 넣는 함수는 useCallback 사용하기
-  const onClickTable = r(() => {
+  const onClickTable = useCallback(() => {
     // dispatch 안에는 action 객체가 들어간다. action 안에 type
     // dispatch한다. -> 액션을 실행한다. -> 액션을 해석해서 state를 변경하기 위해서는 reducer를 동작시켜야한다.
     // 액션할 때마다 reducer가 실행된다.
